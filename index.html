@@ -1,34 +1,217 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <title>ToyStamp Works</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ToyStamp Works</title>
+  <meta name="description" content="ToyStamp Works は日本を拠点とする iOS アプリ開発者です。" />
+  <style>
+    :root {
+      --bg: #0b1220;
+      --card: rgba(255, 255, 255, 0.06);
+      --text: rgba(255, 255, 255, 0.92);
+      --muted: rgba(255, 255, 255, 0.68);
+      --border: rgba(255, 255, 255, 0.12);
+      --accent1: #6ee7ff;
+      --accent2: #a78bfa;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+        "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP",
+        "Yu Gothic", "Meiryo", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(1200px 600px at 10% 0%, rgba(110,231,255,0.18), transparent 60%),
+        radial-gradient(900px 500px at 90% 10%, rgba(167,139,250,0.18), transparent 55%),
+        linear-gradient(180deg, #070b14 0%, var(--bg) 100%);
+      min-height: 100vh;
+    }
+
+    .wrap {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 48px 20px 60px;
+    }
+
+    .hero {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      width: fit-content;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.04);
+      border-radius: 999px;
+      backdrop-filter: blur(8px);
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent1), var(--accent2));
+      box-shadow: 0 0 0 4px rgba(110,231,255,0.10);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 44px;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
+
+    .sub {
+      margin: 0;
+      font-size: 16px;
+      color: var(--muted);
+      line-height: 1.8;
+      max-width: 62ch;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    @media (min-width: 760px) {
+      .grid { grid-template-columns: 1fr 1fr; }
+      .span2 { grid-column: span 2; }
+    }
+
+    .card {
+      border: 1px solid var(--border);
+      background: var(--card);
+      border-radius: 18px;
+      padding: 18px 18px 16px;
+      backdrop-filter: blur(10px);
+    }
+
+    h2 {
+      margin: 0 0 10px;
+      font-size: 18px;
+      letter-spacing: -0.01em;
+    }
+
+    p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.9;
+      font-size: 15px;
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+      line-height: 1.9;
+      font-size: 15px;
+    }
+
+    li { margin: 6px 0; }
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .pill {
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.04);
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    a {
+      color: var(--text);
+      text-decoration: none;
+      border-bottom: 1px dashed rgba(255,255,255,0.35);
+    }
+    a:hover { border-bottom-color: rgba(255,255,255,0.75); }
+
+    footer {
+      margin-top: 26px;
+      color: rgba(255,255,255,0.45);
+      font-size: 12px;
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
-  <h1>ToyStamp Works</h1>
-  <p>Independent iOS Application Developer</p>
+  <main class="wrap">
+    <section class="hero">
+      <div class="badge">
+        <span class="dot" aria-hidden="true"></span>
+        <span>公式サイト（公開中）</span>
+      </div>
 
-  <h2>About ToyStamp Works</h2>
-  <p>
-    ToyStamp Works is an independent iOS application developer based in Japan.
-    We design and develop mobile applications focused on usability, simplicity,
-    and long-term maintenance.
-  </p>
+      <h1>ToyStamp Works</h1>
 
-  <h2>What We Do</h2>
-  <ul>
-    <li>iOS application development</li>
-    <li>Development using React Native and Expo</li>
-    <li>Maintenance and continuous improvement of mobile apps</li>
-  </ul>
+      <p class="sub">
+        ToyStamp Works は日本を拠点とする <strong>iOSアプリ開発者</strong>です。<br />
+        使いやすさ・シンプルさ・保守性を大切にし、モバイルアプリの設計／開発／改善を行っています。
+      </p>
 
-  <h2>Contact</h2>
-  <p>
-    For inquiries regarding our applications or business, please contact us at:
-  </p>
-  <p>
-    <strong>Email:</strong> ccs716716@gmail.com
-  </p>
+      <div class="row" aria-label="keywords">
+        <div class="pill">iOSアプリ開発</div>
+        <div class="pill">React Native / Expo</div>
+        <div class="pill">継続改善・保守</div>
+      </div>
+    </section>
+
+    <section class="grid">
+      <div class="card">
+        <h2>概要</h2>
+        <p>
+          個人で活動する開発チームとして、モバイルアプリの企画から実装、運用改善まで一貫して対応します。
+          公開情報として、本ページは ToyStamp Works の公式Webサイトです。
+        </p>
+      </div>
+
+      <div class="card">
+        <h2>できること</h2>
+        <ul>
+          <li>iOSアプリの設計・開発</li>
+          <li>React Native / Expo を用いたモバイル開発</li>
+          <li>不具合修正・保守・継続的な改善</li>
+        </ul>
+      </div>
+
+      <div class="card span2">
+        <h2>お問い合わせ</h2>
+        <p>
+          アプリや事業に関するお問い合わせは、以下のメールアドレスまでご連絡ください。<br />
+          <strong>Email:</strong>
+          <a href="mailto:ccs716716@gmail.com">ccs716716@gmail.com</a>
+        </p>
+      </div>
+    </section>
+
+    <footer>
+      © <span id="y"></span> ToyStamp Works. All rights reserved.
+    </footer>
+  </main>
+
+  <script>
+    // 年号だけ自動で更新（見た目用。なくてもOK）
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
