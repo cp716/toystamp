@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -16,12 +17,18 @@
       --border: rgba(16, 24, 40, 0.10);
 
       /* ★変更：パステル寄りのアクセント */
-      --accent1: #5eead4; /* mint */
-      --accent2: #93c5fd; /* sky */
-      --accent3: #fbcfe8; /* pink */
+      --accent1: #5eead4;
+      /* mint */
+      --accent2: #93c5fd;
+      /* sky */
+      --accent3: #fbcfe8;
+      /* pink */
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
@@ -31,9 +38,9 @@
 
       /* ★変更：明るい背景グラデ＋やさしい色玉 */
       background:
-        radial-gradient(900px 520px at 10% 0%, rgba(94,234,212,0.30), transparent 60%),
-        radial-gradient(900px 520px at 90% 10%, rgba(147,197,253,0.28), transparent 55%),
-        radial-gradient(900px 520px at 60% 90%, rgba(251,207,232,0.25), transparent 55%),
+        radial-gradient(900px 520px at 10% 0%, rgba(94, 234, 212, 0.30), transparent 60%),
+        radial-gradient(900px 520px at 90% 10%, rgba(147, 197, 253, 0.28), transparent 55%),
+        radial-gradient(900px 520px at 60% 90%, rgba(251, 207, 232, 0.25), transparent 55%),
         linear-gradient(180deg, #ffffff 0%, var(--bg) 100%);
       min-height: 100vh;
     }
@@ -58,7 +65,8 @@
       padding: 10px 14px;
       width: fit-content;
       border: 1px solid var(--border);
-      background: rgba(255,255,255,0.60); /* ★変更 */
+      background: rgba(255, 255, 255, 0.60);
+      /* ★変更 */
       border-radius: 999px;
       backdrop-filter: blur(10px);
       font-size: 14px;
@@ -70,7 +78,8 @@
       height: 10px;
       border-radius: 50%;
       background: linear-gradient(135deg, var(--accent1), var(--accent2));
-      box-shadow: 0 0 0 4px rgba(94,234,212,0.20); /* ★変更 */
+      box-shadow: 0 0 0 4px rgba(94, 234, 212, 0.20);
+      /* ★変更 */
     }
 
     h1 {
@@ -96,8 +105,13 @@
     }
 
     @media (min-width: 760px) {
-      .grid { grid-template-columns: 1fr 1fr; }
-      .span2 { grid-column: span 2; }
+      .grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .span2 {
+        grid-column: span 2;
+      }
     }
 
     .card {
@@ -110,7 +124,7 @@
       /* ★追加：明るい影 */
       box-shadow:
         0 10px 25px rgba(16, 24, 40, 0.06),
-        0 1px 0 rgba(255,255,255,0.60) inset;
+        0 1px 0 rgba(255, 255, 255, 0.60) inset;
     }
 
     h2 {
@@ -134,7 +148,9 @@
       font-size: 15px;
     }
 
-    li { margin: 6px 0; }
+    li {
+      margin: 6px 0;
+    }
 
     .row {
       display: flex;
@@ -145,7 +161,8 @@
 
     .pill {
       border: 1px solid var(--border);
-      background: rgba(255,255,255,0.70); /* ★変更 */
+      background: rgba(255, 255, 255, 0.70);
+      /* ★変更 */
       padding: 8px 12px;
       border-radius: 999px;
       font-size: 13px;
@@ -158,7 +175,10 @@
       text-decoration: none;
       border-bottom: 1px dashed rgba(2, 132, 199, 0.35);
     }
-    a:hover { border-bottom-color: rgba(2, 132, 199, 0.75); }
+
+    a:hover {
+      border-bottom-color: rgba(2, 132, 199, 0.75);
+    }
 
     /* ★追加：Capeボタン */
     .cta {
@@ -169,16 +189,18 @@
       padding: 12px 14px;
       border-radius: 14px;
       border: 1px solid var(--border);
-      background: linear-gradient(135deg, rgba(94,234,212,0.35), rgba(147,197,253,0.35));
+      background: linear-gradient(135deg, rgba(94, 234, 212, 0.35), rgba(147, 197, 253, 0.35));
       color: rgba(16, 24, 40, 0.92);
       font-weight: 700;
       box-shadow: 0 10px 18px rgba(16, 24, 40, 0.06);
       width: fit-content;
     }
+
     .cta:hover {
       transform: translateY(-1px);
       box-shadow: 0 14px 24px rgba(16, 24, 40, 0.08);
     }
+
     .cta small {
       display: block;
       font-weight: 600;
@@ -187,12 +209,14 @@
 
     footer {
       margin-top: 26px;
-      color: rgba(16,24,40,0.45); /* ★変更 */
+      color: rgba(16, 24, 40, 0.45);
+      /* ★変更 */
       font-size: 12px;
       text-align: center;
     }
   </style>
 </head>
+
 <body>
   <main class="wrap">
     <section class="hero">
@@ -232,22 +256,30 @@
         </ul>
       </div>
 
-      <!-- ★追加：Capeセクション -->
+      <!-- ★ Cape セクション -->
       <div class="card span2">
         <h2>アプリ</h2>
+
+        <!-- アプリアイコン -->
+        <div style="display:flex; gap:16px; align-items:center; margin-bottom:12px;">
+          <img src="images/icon.png" alt="育児記録 - Cape アプリアイコン" width="72" height="72"
+            style="border-radius:16px; box-shadow:0 6px 14px rgba(0,0,0,0.15);" />
+
+          <div>
+            <strong>育児記録 - Cape</strong><br />
+            <span style="color:var(--muted); font-size:14px;">
+              シンプルで続けやすい育児記録アプリ
+            </span>
+          </div>
+        </div>
+
         <p>
-          育児記録アプリ <strong>「育児記録 - Cape」</strong> を開発・運用しています。<br />
-          日々の記録をシンプルに続けられることを大切にしています。
+          日々の育児記録を、やさしく・直感的に残せるアプリです。
         </p>
 
-        <a
-          class="cta"
-          href="https://apps.apple.com/app/id6747367484"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          育児記録 - Cape を App Store で見る
-          <small>iPhone / iPad</small>
+        <a class="cta" href="https://apps.apple.com/app/id6747367484" target="_blank" rel="noopener noreferrer">
+          App Storeで見る
+          <small>iPhone / iPad / Mac</small>
         </a>
       </div>
 
@@ -267,8 +299,9 @@
   </main>
 
   <script>
-    // 年号だけ自動で更新（見た目用。なくてもOK）
+    // 年号だけ自動で更新
     document.getElementById('y').textContent = new Date().getFullYear();
   </script>
 </body>
+
 </html>
