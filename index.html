@@ -5,15 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ToyStamp Works</title>
   <meta name="description" content="ToyStamp Works は日本を拠点とする iOS アプリ開発チームです。" />
+
   <style>
+    /* ★変更：明るい配色（育児向けのやさしい雰囲気） */
     :root {
-      --bg: #0b1220;
-      --card: rgba(255, 255, 255, 0.06);
-      --text: rgba(255, 255, 255, 0.92);
-      --muted: rgba(255, 255, 255, 0.68);
-      --border: rgba(255, 255, 255, 0.12);
-      --accent1: #6ee7ff;
-      --accent2: #a78bfa;
+      --bg: #f7fbff;
+      --card: rgba(255, 255, 255, 0.75);
+      --text: rgba(16, 24, 40, 0.92);
+      --muted: rgba(16, 24, 40, 0.68);
+      --border: rgba(16, 24, 40, 0.10);
+
+      /* ★変更：パステル寄りのアクセント */
+      --accent1: #5eead4; /* mint */
+      --accent2: #93c5fd; /* sky */
+      --accent3: #fbcfe8; /* pink */
     }
 
     * { box-sizing: border-box; }
@@ -23,10 +28,13 @@
         "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP",
         "Yu Gothic", "Meiryo", sans-serif;
       color: var(--text);
+
+      /* ★変更：明るい背景グラデ＋やさしい色玉 */
       background:
-        radial-gradient(1200px 600px at 10% 0%, rgba(110,231,255,0.18), transparent 60%),
-        radial-gradient(900px 500px at 90% 10%, rgba(167,139,250,0.18), transparent 55%),
-        linear-gradient(180deg, #070b14 0%, var(--bg) 100%);
+        radial-gradient(900px 520px at 10% 0%, rgba(94,234,212,0.30), transparent 60%),
+        radial-gradient(900px 520px at 90% 10%, rgba(147,197,253,0.28), transparent 55%),
+        radial-gradient(900px 520px at 60% 90%, rgba(251,207,232,0.25), transparent 55%),
+        linear-gradient(180deg, #ffffff 0%, var(--bg) 100%);
       min-height: 100vh;
     }
 
@@ -50,9 +58,9 @@
       padding: 10px 14px;
       width: fit-content;
       border: 1px solid var(--border);
-      background: rgba(255,255,255,0.04);
+      background: rgba(255,255,255,0.60); /* ★変更 */
       border-radius: 999px;
-      backdrop-filter: blur(8px);
+      backdrop-filter: blur(10px);
       font-size: 14px;
       color: var(--muted);
     }
@@ -62,7 +70,7 @@
       height: 10px;
       border-radius: 50%;
       background: linear-gradient(135deg, var(--accent1), var(--accent2));
-      box-shadow: 0 0 0 4px rgba(110,231,255,0.10);
+      box-shadow: 0 0 0 4px rgba(94,234,212,0.20); /* ★変更 */
     }
 
     h1 {
@@ -97,7 +105,12 @@
       background: var(--card);
       border-radius: 18px;
       padding: 18px 18px 16px;
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(12px);
+
+      /* ★追加：明るい影 */
+      box-shadow:
+        0 10px 25px rgba(16, 24, 40, 0.06),
+        0 1px 0 rgba(255,255,255,0.60) inset;
     }
 
     h2 {
@@ -132,23 +145,49 @@
 
     .pill {
       border: 1px solid var(--border);
-      background: rgba(255,255,255,0.04);
+      background: rgba(255,255,255,0.70); /* ★変更 */
       padding: 8px 12px;
       border-radius: 999px;
       font-size: 13px;
       color: var(--muted);
     }
 
+    /* ★変更：リンクを明るく（青系） */
     a {
-      color: var(--text);
+      color: rgba(2, 132, 199, 0.95);
       text-decoration: none;
-      border-bottom: 1px dashed rgba(255,255,255,0.35);
+      border-bottom: 1px dashed rgba(2, 132, 199, 0.35);
     }
-    a:hover { border-bottom-color: rgba(255,255,255,0.75); }
+    a:hover { border-bottom-color: rgba(2, 132, 199, 0.75); }
+
+    /* ★追加：Capeボタン */
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: linear-gradient(135deg, rgba(94,234,212,0.35), rgba(147,197,253,0.35));
+      color: rgba(16, 24, 40, 0.92);
+      font-weight: 700;
+      box-shadow: 0 10px 18px rgba(16, 24, 40, 0.06);
+      width: fit-content;
+    }
+    .cta:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 24px rgba(16, 24, 40, 0.08);
+    }
+    .cta small {
+      display: block;
+      font-weight: 600;
+      color: rgba(16, 24, 40, 0.65);
+    }
 
     footer {
       margin-top: 26px;
-      color: rgba(255,255,255,0.45);
+      color: rgba(16,24,40,0.45); /* ★変更 */
       font-size: 12px;
       text-align: center;
     }
@@ -166,11 +205,11 @@
 
       <p class="sub">
         ToyStamp Works は日本を拠点とする <strong>アプリ開発チーム</strong>です。<br />
-        使いやすさ・シンプルさ・保守性を大切にし、アプリの設計／開発／改善を行っています。
+        育児の毎日が少しラクになるように、やさしく・わかりやすい体験を大切にして開発しています。
       </p>
 
       <div class="row" aria-label="keywords">
-        <div class="pill">アプリ開発</div>
+        <div class="pill">育児サポート</div> <!-- ★変更 -->
         <div class="pill">React Native / Expo</div>
         <div class="pill">継続改善・保守</div>
       </div>
@@ -191,6 +230,25 @@
           <li>React Native / Expo を用いたモバイル開発</li>
           <li>不具合修正・保守・継続的な改善</li>
         </ul>
+      </div>
+
+      <!-- ★追加：Capeセクション -->
+      <div class="card span2">
+        <h2>アプリ</h2>
+        <p>
+          育児記録アプリ <strong>「育児記録 - Cape」</strong> を開発・運用しています。<br />
+          日々の記録をシンプルに続けられることを大切にしています。
+        </p>
+
+        <a
+          class="cta"
+          href="https://apps.apple.com/app/id6747367484"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          育児記録 - Cape を App Store で見る
+          <small>iPhone / iPad</small>
+        </a>
       </div>
 
       <div class="card span2">
