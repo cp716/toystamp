@@ -123,6 +123,25 @@
       box-shadow: 0 0 0 4px rgba(147, 197, 253, 0.22);
     }
 
+    .days-wrapper {
+      display: flex;
+      gap: 8px;
+      align-items: stretch;
+    }
+
+    .days-wrapper input {
+      flex: 1;
+    }
+
+    .sign-btn {
+      min-width: 48px;
+      border-radius: 12px;
+      font-weight: 700;
+      background: linear-gradient(135deg,
+          rgba(94, 234, 212, 0.4),
+          rgba(147, 197, 253, 0.4));
+    }
+
     .inline {
       display: flex;
       gap: 10px;
@@ -155,7 +174,7 @@
       box-shadow: 0 8px 16px rgba(16, 24, 40, 0.06);
     }
 
-    button:hover {
+    button:hover:not(.sign-btn) {
       background: rgba(255, 255, 255, 0.85);
       box-shadow: 0 12px 22px rgba(16, 24, 40, 0.08);
     }
@@ -273,6 +292,65 @@
     button.danger:hover {
       background: rgba(248, 113, 113, 0.14);
     }
+
+    .sign-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    /* ★スマホで基準日(date)が右に はみ出る対策 */
+    #baseDate {
+      min-width: 0;
+      /* flex/grid内でのはみ出し防止 */
+      max-width: 100%;
+      -webkit-appearance: none;
+      /* iOSの独自UIでの幅暴れを抑える */
+      appearance: none;
+    }
+
+    /* iOS Safari向け：日付フィールド内部の部品が押し広げるのを抑える */
+    #baseDate::-webkit-date-and-time-value {
+      width: 100%;
+    }
+
+    /* （保険）横スクロールが出るのを防ぐ */
+    body {
+      overflow-x: hidden;
+    }
+
+    /* ★スマホは少しだけ内側に（指で押しやすい） */
+    @media (max-width: 480px) {
+      .reset-top {
+        top: 10px;
+        right: 10px;
+      }
+    }
+
+    /* ★基準日のラベル行を左右に配置 */
+    .row-head {
+      display: flex;
+      align-items: center;
+      /* ←高さが揃う */
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    /* ★右側のリセットは小さめのまま、行にフィットさせる */
+    .reset-inline {
+      padding: 6px 12px;
+      /* reset-btnのままでOKなら省略可 */
+      line-height: 1;
+      /* ←縦ズレ対策 */
+      height: 28px;
+      /* ←label行と揃えやすい */
+    }
+
+    /* ★スマホで押しやすいよう少しだけ大きくしたい場合（任意） */
+    @media (max-width: 480px) {
+      .reset-inline {
+        height: 32px;
+      }
+    }
   </style>
 </head>
 
@@ -287,31 +365,38 @@
       <!-- 入力 -->
       <section class="card" aria-label="入力">
         <div class="row">
-          <label for="baseDate">基準日</label>
+          <!-- ★追加：ラベル行を左右に分ける -->
+          <div class="row-head">
+            <label for="baseDate">基準日</label>
+
+            <!-- ★ここに移動：基準日ラベルと同じ高さで揃う -->
+            <button class="danger reset-btn reset-inline" id="resetBtn" type="button">リセット</button>
+          </div>
+
           <input id="baseDate" type="date" />
         </div>
 
         <div class="row">
           <label for="days">＋日数（マイナス値も入力可能）</label>
-          <input id="days" type="number" inputmode="numeric" placeholder="例：30 / -7" />
+          <div class="days-wrapper">
+            <input id="days" type="number" inputmode="numeric" placeholder="例：30 / -7" />
+            <button type="button" class="sign-btn" id="toggleSignBtn">正負切替</button>
+          </div>
         </div>
 
         <div class="row">
-            <label class="inline" for="includeStart">
-              <input id="includeStart" type="checkbox" />
-              初日を数える（今日を1日目として計算）
-            </label>
+          <label class="inline" for="includeStart">
+            <input id="includeStart" type="checkbox" />
+            初日を数える
+          </label>
         </div>
 
         <div class="btns">
-          <button class="danger reset-btn" id="resetBtn" type="button">リセット</button>
-
           <!-- 結果 -->
           <div class="pill" id="resultPill" style="margin-top:0;">
             <p class="muted">計算結果</p>
             <span class="big" id="resultDate">—</span>
           </div>
-
         </div>
 
         <div style="margin-top:12px">
@@ -340,6 +425,33 @@
     const calcBtn = document.getElementById('calcBtn');
     if (calcBtn) calcBtn.addEventListener('click', calculate);
     const resetBtn = document.getElementById('resetBtn');
+
+    const toggleSignBtn = document.getElementById('toggleSignBtn');
+
+    function updateSignButtonState() {
+      const value = daysEl.value.trim();
+
+      if (value === '' || Number(value) === 0) {
+        toggleSignBtn.disabled = true;
+      } else {
+        toggleSignBtn.disabled = false;
+      }
+    }
+
+    toggleSignBtn.addEventListener('click', () => {
+      const value = daysEl.value.trim();
+
+      if (value === '' || Number(value) === 0) return;
+
+      if (value.startsWith('-')) {
+        daysEl.value = value.substring(1);
+      } else {
+        daysEl.value = '-' + value;
+      }
+
+      updateSignButtonState();
+      calculate();
+    });
 
     const WEEK = ['日', '月', '火', '水', '木', '金', '土'];
 
@@ -446,6 +558,7 @@
       daysEl.value = 0; // ★日数を0に戻す
       clearMessages();
       calculate();      // ★表示も更新
+      updateSignButtonState();
     }
 
     // ボタン操作（★calcBtn は存在しないので if で安全に）
@@ -455,14 +568,19 @@
     // 入力したら自動で再計算（操作がラク）
     baseDateEl.addEventListener('change', calculate);
     daysEl.addEventListener('input', () => {
-      // 入力中のエラーを減らすため、空なら計算しない
-      if (String(daysEl.value).trim() !== '') calculate();
+      updateSignButtonState();
+
+      const v = String(daysEl.value).trim();
+      if (v === '' || v === '-' || v === '+') return;
+
+      calculate();
     });
     includeStartEl.addEventListener('change', calculate);
 
     // 初期状態：今日を入れておく（好みで消してOK）
     setToday();
     daysEl.value = 0;
+    updateSignButtonState();
     calculate();
   </script>
 </body>
