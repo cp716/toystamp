@@ -391,14 +391,127 @@
     .inline-compact {
       padding: 8px 10px;
     }
+
+    /* =========================
+   ★追加：縦の余白バランス調整
+   ========================= */
+
+    /* 全体の行間をほんの少し詰める（見た目が安定） */
+    body {
+      line-height: 1.55;
+    }
+
+    /* タイトル周りの余白を整える */
+    header {
+      margin: 14px 0 22px;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+    }
+
+    .sub {
+      margin: 0;
+    }
+
+    /* カード内の上下の余白を少し増やして“呼吸”を作る */
+    .card {
+      padding: 22px 20px 20px;
+    }
+
+    /* 入力ブロック（row）同士の間隔を統一 */
+    .row {
+      gap: 12px;
+      /* label→input間など */
+      margin: 0 0 18px;
+      /* row同士の間 */
+    }
+
+    /* 最後のrowだけ余計な下余白を消す（カード下がだぶつかない） */
+    .row:last-of-type {
+      margin-bottom: 10px;
+    }
+
+    /* labelと入力の距離を気持ち広げる */
+    label {
+      margin-top: 2px;
+    }
+
+    /* 入力欄とボタンの高さを揃えて見た目を安定させる */
+    input[type="date"],
+    input[type="number"],
+    button {
+      min-height: 44px;
+      /* iPhoneの推奨タップサイズにも近い */
+    }
+
+    /* 数値入力行（入力 + ＋ −）の上下を少し整える */
+    .days-wrapper {
+      gap: 10px;
+    }
+
+    /* 正負切替 + 初日を数える の“段”の上に少し余白を作る */
+    .below-row {
+      margin-top: 10px;
+      gap: 10px;
+    }
+
+    /* checkboxの縦位置ズレを抑える */
+    .inline input[type="checkbox"] {
+      transform: translateY(1px);
+    }
+
+    /* 計算結果エリアの余白を整える */
+    .btns {
+      margin-top: 16px;
+      /* rowの後にちゃんと間を作る */
+      gap: 10px;
+    }
+
+    /* pillの中の上下余白を増やして見やすく */
+    .pill {
+      padding: 12px 22px;
+    }
+
+    /* 「計算結果」文字と日付の距離を自然に */
+    .pill .muted {
+      margin: 0 0 6px;
+    }
+
+    /* メッセージの上の余白を統一（inline style 12px を上書き） */
+    .card>div[style*="margin-top:12px"] {
+      margin-top: 14px !important;
+    }
+
+    /* エラー/OKの行間と余白を整える */
+    .err,
+    .ok {
+      min-height: 18px;
+      line-height: 1.35;
+    }
+
+    /* スマホはカード内余白を少しだけ減らす（窮屈に見えない程度） */
+    @media (max-width: 480px) {
+      .card {
+        padding: 18px 16px 16px;
+      }
+
+      .row {
+        margin-bottom: 16px;
+      }
+
+      .pill {
+        padding: 10px 30px;
+      }
+    }
   </style>
 </head>
 
 <body>
   <div class="wrap">
     <header>
-      <h1>日付計算（日付＋日数）</h1>
-      <p class="sub">日付に日数を足して、新しい日付と曜日を出します（負数で引き算も可能）。</p>
+      <h1>日付計算</h1>
+      <p class="sub">基準日から指定した日数を足し引きして日付を計算します。</p>
     </header>
 
     <div class="grid">
@@ -417,7 +530,7 @@
         </div>
 
         <div class="row">
-          <label for="days">＋日数（マイナス値も入力可能）</label>
+          <label for="days">日数の差（マイナス値も入力可能）</label>
 
           <!-- 数値入力 + 右側に「＋」「−」 -->
           <div class="days-wrapper">
