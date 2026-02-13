@@ -556,7 +556,6 @@
           <div class="pill" id="resultPill" style="margin-top:0;">
             <p class="muted">計算結果</p>
             <span class="big" id="resultDate">----/--/--（-）</span>
-            <div class="muted" id="holidayText"></div> <!-- ★ここを追加 -->
           </div>
         </div>
 
@@ -579,38 +578,6 @@
     const includeStartEl = document.getElementById('includeStart');
 
     const resultDateEl = document.getElementById('resultDate');
-
-    // ★追加：祝日表示用
-    const holidayTextEl = document.getElementById('holidayText');
-
-    // ★追加：Google祝日カレンダー（日本）から祝日名を取得
-    async function getJapaneseHolidayName(ymd) {
-      // Google Public Holidays (Japan) の iCal をJSONで読む（rss2json経由）
-      // ※URLはコード内なのでそのまま使えます
-      const icalUrl = 'https://calendar.google.com/calendar/ical/ja.japanese%23holiday%40group.v.calendar.google.com/public/basic.ics';
-
-      // rss2jsonは「URLをJSON化して返す」サービス（無料枠あり）
-      const api = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(icalUrl)}`;
-
-      const res = await fetch(api);
-      if (!res.ok) throw new Error('祝日データ取得に失敗しました');
-      const data = await res.json();
-
-      // itemsの中に "YYYYMMDD" を含む行があるので、ざっくり探す
-      // 祝日のICSは DTSTART;VALUE=DATE:20260101 のような形式
-      const key = ymd.replace(/-/g, ''); // YYYYMMDD
-
-      for (const item of (data.items ?? [])) {
-        const content = item.content || '';
-        if (content.includes(`DTSTART;VALUE=DATE:${key}`)) {
-          // 祝日名はSUMMARY:○○ のように入ってる
-          const m = content.match(/SUMMARY:(.+)/);
-          if (m && m[1]) return m[1].trim();
-          return '祝日';
-        }
-      }
-      return null;
-    }
 
     const errorTextEl = document.getElementById('errorText');
     const okTextEl = document.getElementById('okText');
@@ -777,17 +744,6 @@
 
       // 曜日ごとに色を変更
       resultDateEl.innerHTML = formatJP(result);
-
-      // ★追加：祝日判定（非同期）
-      (async () => {
-        try {
-          const ymd = formatISO(result); // "YYYY-MM-DD"
-          const name = await getJapaneseHolidayName(ymd);
-          holidayTextEl.textContent = name ? `🎌 祝日：${name}` : '祝日ではありません';
-        } catch (e) {
-          holidayTextEl.textContent = '祝日判定：取得できません（通信エラー）';
-        }
-      })();
 
       const baseJP = formatJP(base);
       const modeText = includeStartEl.checked ? '初日を数える' : '初日を数えない';
