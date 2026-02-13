@@ -37,11 +37,7 @@
 
       color: var(--text);
 
-      background:
-        radial-gradient(900px 520px at 10% 0%, rgba(94, 234, 212, 0.30), transparent 60%),
-        radial-gradient(900px 520px at 90% 10%, rgba(147, 197, 253, 0.28), transparent 55%),
-        radial-gradient(900px 520px at 60% 90%, rgba(251, 207, 232, 0.25), transparent 55%),
-        linear-gradient(180deg, #ffffff 0%, var(--bg) 100%);
+      background: #f4cdcd;
 
       min-height: 100vh;
       line-height: 1.6;
@@ -83,8 +79,8 @@
     }
 
     .card {
-      border: 1px solid var(--line);
-      background: var(--card);
+      border: 0px solid #000;
+      background: #F0F4F8;
       border-radius: 18px;
       padding: 18px 18px 16px;
       backdrop-filter: blur(12px);
@@ -351,6 +347,50 @@
         height: 32px;
       }
     }
+
+    /* ★追加：＋/−ボタン（数値入力の右側） */
+    .step-btn {
+      min-width: 44px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    /* ★変更：下段（PCは左寄せ / スマホは均等2分割） */
+    .below-row {
+      display: flex;
+      gap: 10px;
+      align-items: stretch;
+      justify-content: flex-start;
+      /* ←PCは左揃え */
+    }
+
+    /* ★追加：下段の2つを同じ横幅にする */
+    .below-row>* {
+      flex: 1;
+      /* ←同じ幅 */
+      min-width: 0;
+    }
+
+    /* ★追加：スマホでは左右に均等配置（同じ幅のまま） */
+    @media (max-width: 480px) {
+      .below-row {
+        justify-content: space-between;
+      }
+    }
+
+    /* ★追加：label（初日を数える）を横幅いっぱいに */
+    .below-row label.inline {
+      width: 100%;
+      justify-content: flex-start;
+      /* テキストも左寄せ */
+    }
+
+    /* ★追加：初日を数えるを少しコンパクトに（見た目調整） */
+    .inline-compact {
+      padding: 8px 10px;
+    }
   </style>
 </head>
 
@@ -378,24 +418,31 @@
 
         <div class="row">
           <label for="days">＋日数（マイナス値も入力可能）</label>
-          <div class="days-wrapper">
-            <input id="days" type="number" inputmode="numeric" placeholder="例：30 / -7" />
-            <button type="button" class="sign-btn" id="toggleSignBtn">正負切替</button>
-          </div>
-        </div>
 
-        <div class="row">
-          <label class="inline" for="includeStart">
-            <input id="includeStart" type="checkbox" />
-            初日を数える
-          </label>
+          <!-- 数値入力 + 右側に「＋」「−」 -->
+          <div class="days-wrapper">
+            <input id="days" type="number" inputmode="numeric" placeholder="" />
+
+            <button type="button" class="step-btn" id="plusBtn">＋</button>
+            <button type="button" class="step-btn" id="minusBtn">−</button>
+          </div>
+
+          <!-- 正負切替（左） + 初日を数える（右） -->
+          <div class="below-row">
+            <button type="button" class="sign-btn" id="toggleSignBtn">正負切替</button>
+
+            <label class="inline inline-compact" for="includeStart">
+              <input id="includeStart" type="checkbox" />
+              初日を数える
+            </label>
+          </div>
         </div>
 
         <div class="btns">
           <!-- 結果 -->
           <div class="pill" id="resultPill" style="margin-top:0;">
             <p class="muted">計算結果</p>
-            <span class="big" id="resultDate">—</span>
+            <span class="big" id="resultDate">----/--/--（-）</span>
           </div>
         </div>
 
@@ -427,6 +474,29 @@
     const resetBtn = document.getElementById('resetBtn');
 
     const toggleSignBtn = document.getElementById('toggleSignBtn');
+
+    const plusBtn = document.getElementById('plusBtn');
+    const minusBtn = document.getElementById('minusBtn');
+
+    // ★追加：＋/−で1ずつ増減
+    function stepDays(delta) {
+      const v = String(daysEl.value ?? '').trim();
+
+      // 空や入力途中なら「0」からスタート
+      let n = 0;
+      if (v !== '' && v !== '-' && v !== '+') {
+        n = Number(v);
+        if (Number.isNaN(n)) n = 0;
+      }
+
+      daysEl.value = String(n + delta);
+
+      updateSignButtonState();
+      calculate();
+    }
+
+    plusBtn.addEventListener('click', () => stepDays(1));
+    minusBtn.addEventListener('click', () => stepDays(-1));
 
     function updateSignButtonState() {
       const value = daysEl.value.trim();
@@ -514,8 +584,24 @@
       }
 
       const daysStr = String(daysEl.value ?? '').trim();
-      if (daysStr === '' || Number.isNaN(Number(daysStr))) {
-        showError('日数を数字で入力してください（例：30 / -7）。');
+
+      // ★変更：空ならエラーにしないで、結果を「—」に戻して終わり
+      if (daysStr === '') {
+        resultDateEl.textContent = '----/--/--（-）';
+        updateSignButtonState();
+        return;
+      }
+
+      // ★入力途中の「-」だけ等も計算しない（エラーにしない）
+      if (daysStr === '-' || daysStr === '+') {
+        resultDateEl.textContent = '----/--/--（-）';
+        updateSignButtonState();
+        return;
+      }
+
+      if (Number.isNaN(Number(daysStr))) {
+        showError('日数を数値で入力してください。');
+        resultDateEl.textContent = '----/--/--（-）';
         return;
       }
 
@@ -555,7 +641,7 @@
       // ★初期状態に戻す：今日 + 0
       includeStartEl.checked = false;
       setToday();       // ★今日を入れる
-      daysEl.value = 0; // ★日数を0に戻す
+      daysEl.value = ''; // ★日数を0に戻す
       clearMessages();
       calculate();      // ★表示も更新
       updateSignButtonState();
@@ -568,10 +654,36 @@
     // 入力したら自動で再計算（操作がラク）
     baseDateEl.addEventListener('change', calculate);
     daysEl.addEventListener('input', () => {
+      // ★追加：日数は最大4桁（-もOK）に制限する
+      const MAX_DIGITS = 4;
+
+      let raw = String(daysEl.value ?? '');
+
+      // 先頭の - は残して、数字だけ取り出す
+      const sign = raw.startsWith('-') ? '-' : '';
+      let digits = raw.replace(/[^0-9]/g, ''); // 数字以外は消す
+
+      // 先頭の0が連続するのを抑える（任意）
+      digits = digits.replace(/^0+(?=\d)/, '');
+
+      // 桁数カット
+      if (digits.length > MAX_DIGITS) {
+        digits = digits.slice(0, MAX_DIGITS);
+      }
+
+      // 反映
+      daysEl.value = sign + digits;
+
       updateSignButtonState();
 
       const v = String(daysEl.value).trim();
-      if (v === '' || v === '-' || v === '+') return;
+
+      // ★追加：空 or 入力途中なら「結果をリセット表示」に戻す
+      if (v === '' || v === '-' || v === '+') {
+        clearMessages(); // エラー文も消す（任意だけど見た目が綺麗）
+        resultDateEl.textContent = '----/--/--（-）';
+        return;
+      }
 
       calculate();
     });
@@ -579,9 +691,10 @@
 
     // 初期状態：今日を入れておく（好みで消してOK）
     setToday();
-    daysEl.value = 0;
+    daysEl.value = '';          // ★初期は空
+    resultDateEl.textContent = '----/--/--（-）';
     updateSignButtonState();
-    calculate();
+    calculate(); // ←このままでOK（空なら—で終わる）
   </script>
 </body>
 
