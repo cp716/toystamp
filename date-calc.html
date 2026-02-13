@@ -1,232 +1,317 @@
 <!doctype html>
 <html lang="ja">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>日付計算（日付＋日数）</title>
   <style>
-    :root{
-      --bg:#0b1220;
-      --card:#101a2f;
-      --text:#eaf0ff;
-      --muted:#a9b6d3;
-      --line:rgba(255,255,255,.12);
-      --accent:#7dd3fc;
-      --accent2:#a7f3d0;
-      --danger:#fda4af;
+    :root {
+      --bg: #f7fbff;
+      --card: rgba(255, 255, 255, 0.75);
+      --text: rgba(16, 24, 40, 0.92);
+      --muted: rgba(16, 24, 40, 0.68);
+      --line: rgba(16, 24, 40, 0.10);
+      /* ★border相当 */
+
+      --accent1: #5eead4;
+      /* mint */
+      --accent2: #93c5fd;
+      /* sky */
+      --accent3: #fbcfe8;
+      /* pink */
+
+      --danger: #f87171;
+      /* ★リセット用（明るめ赤） */
     }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
-      background: radial-gradient(1200px 800px at 20% 0%, rgba(125,211,252,.18), transparent 50%),
-                  radial-gradient(1200px 800px at 80% 20%, rgba(167,243,208,.14), transparent 55%),
-                  var(--bg);
-      color:var(--text);
-      line-height:1.6;
+
+    * {
+      box-sizing: border-box
     }
-    .wrap{
+
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+        "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP",
+        "Yu Gothic", "Meiryo", sans-serif;
+
+      color: var(--text);
+
+      background:
+        radial-gradient(900px 520px at 10% 0%, rgba(94, 234, 212, 0.30), transparent 60%),
+        radial-gradient(900px 520px at 90% 10%, rgba(147, 197, 253, 0.28), transparent 55%),
+        radial-gradient(900px 520px at 60% 90%, rgba(251, 207, 232, 0.25), transparent 55%),
+        linear-gradient(180deg, #ffffff 0%, var(--bg) 100%);
+
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    .wrap {
       max-width: 980px;
       margin: 0 auto;
       padding: 24px 16px 60px;
     }
-    header{
+
+    header {
       margin: 10px 0 18px;
     }
-    h1{
+
+    h1 {
       font-size: clamp(22px, 3.3vw, 32px);
       margin: 0 0 6px;
       letter-spacing: .02em;
     }
-    .sub{
-      margin:0;
-      color:var(--muted);
+
+    .sub {
+      margin: 0;
+      color: var(--muted);
       font-size: 14px;
     }
 
-    .grid{
-      display:grid;
-      grid-template-columns: 1.1fr .9fr;
-      gap:16px;
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
       margin-top: 16px;
     }
-    @media (max-width: 840px){
-      .grid{grid-template-columns:1fr}
+
+    @media (max-width: 840px) {
+      .grid {
+        grid-template-columns: 1fr
+      }
     }
 
-    .card{
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+    .card {
       border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 16px;
-      box-shadow: 0 12px 30px rgba(0,0,0,.25);
-      backdrop-filter: blur(8px);
+      background: var(--card);
+      border-radius: 18px;
+      padding: 18px 18px 16px;
+      backdrop-filter: blur(12px);
+
+      box-shadow:
+        0 10px 25px rgba(16, 24, 40, 0.06),
+        0 1px 0 rgba(255, 255, 255, 0.60) inset;
     }
 
-    .row{
-      display:grid;
-      gap:10px;
+    .row {
+      display: grid;
+      gap: 10px;
       margin: 10px 0 14px;
     }
 
-    label{
+    label {
       font-size: 13px;
       color: var(--muted);
     }
 
-    input[type="date"], input[type="number"]{
-      width:100%;
+    input[type="date"],
+    input[type="number"] {
+      width: 100%;
       padding: 12px 12px;
       border-radius: 12px;
       border: 1px solid var(--line);
-      background: rgba(0,0,0,.18);
+      background: rgba(255, 255, 255, 0.70);
       color: var(--text);
       outline: none;
       font-size: 16px;
     }
-    input[type="date"]:focus, input[type="number"]:focus{
-      border-color: rgba(125,211,252,.65);
-      box-shadow: 0 0 0 4px rgba(125,211,252,.12);
+
+    input[type="date"]:focus,
+    input[type="number"]:focus {
+      border-color: rgba(2, 132, 199, 0.45);
+      box-shadow: 0 0 0 4px rgba(147, 197, 253, 0.22);
     }
 
-    .inline{
-      display:flex;
+    .inline {
+      display: flex;
       gap: 10px;
-      align-items:center;
+      align-items: center;
       flex-wrap: wrap;
       padding: 10px 10px;
       border-radius: 12px;
       border: 1px solid var(--line);
-      background: rgba(0,0,0,.12);
+      background: rgba(0, 0, 0, .12);
     }
 
-    .btns{
-      display:flex;
-      gap:10px;
+    .btns {
+      display: flex;
+      gap: 10px;
       flex-wrap: wrap;
       margin-top: 12px;
     }
-    button{
+
+    button {
       border: 1px solid var(--line);
-      background: rgba(0,0,0,.18);
+      background: rgba(255, 255, 255, 0.70);
       color: var(--text);
-      padding: 12px 14px;
-      border-radius: 12px;
-      cursor:pointer;
-      font-size: 15px;
-      transition: transform .05s ease, border-color .15s ease, background .15s ease;
+      padding: 10px 12px;
+      border-radius: 14px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: transform .05s ease, box-shadow .15s ease, background .15s ease;
       user-select: none;
-    }
-    button:hover{
-      border-color: rgba(125,211,252,.55);
-      background: rgba(125,211,252,.10);
-    }
-    button:active{ transform: translateY(1px); }
 
-    .primary{
-      border-color: rgba(125,211,252,.55);
-      background: rgba(125,211,252,.14);
-    }
-    .danger{
-      border-color: rgba(253,164,175,.55);
-      background: rgba(253,164,175,.10);
+      box-shadow: 0 8px 16px rgba(16, 24, 40, 0.06);
     }
 
-    .result{
-      display:grid;
+    button:hover {
+      background: rgba(255, 255, 255, 0.85);
+      box-shadow: 0 12px 22px rgba(16, 24, 40, 0.08);
+    }
+
+    button:active {
+      transform: translateY(1px);
+    }
+
+    .primary {
+      border-color: rgba(125, 211, 252, .55);
+      background: rgba(125, 211, 252, .14);
+    }
+
+    .danger {
+      border-color: rgba(253, 164, 175, .55);
+      background: rgba(253, 164, 175, .10);
+    }
+
+    .result {
+      display: grid;
       gap: 10px;
     }
-    .pill{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding: 10px 12px;
-      border-radius: 999px;
+
+    .pill {
       border: 1px solid var(--line);
-      background: rgba(0,0,0,.14);
-      width: fit-content;
-      max-width: 100%;
+      background: rgba(255, 255, 255, 0.70);
+      padding: 5px 30px;
+      border-radius: 999px;
+      color: var(--muted);
     }
-    .big{
+
+    .big {
       font-size: 20px;
       font-weight: 700;
       letter-spacing: .02em;
-      overflow-wrap:anywhere;
+      overflow-wrap: anywhere;
     }
-    .muted{ color: var(--muted); font-size: 13px; margin:0; }
-    .hint{
+
+    .muted {
       color: var(--muted);
       font-size: 13px;
-      margin-top: 10px;
+      margin: 0;
     }
-    .ok{
+
+    .ok {
       color: var(--accent2);
       font-weight: 600;
       font-size: 13px;
       min-height: 18px;
     }
-    .err{
+
+    .err {
       color: var(--danger);
       font-weight: 600;
       font-size: 13px;
       min-height: 18px;
     }
 
-    .footerNote{
+    .footerNote {
       margin-top: 14px;
       font-size: 12px;
       color: var(--muted);
     }
 
-    .kbd{
+    .kbd {
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
       font-size: 12px;
       padding: 2px 8px;
       border-radius: 8px;
       border: 1px solid var(--line);
-      background: rgba(0,0,0,.15);
+      background: rgba(0, 0, 0, .15);
       color: var(--text);
+    }
+
+    /* 曜日ごとの色 */
+    .saturday {
+      color: #60a5fa;
+      /* 青 */
+    }
+
+    .sunday {
+      color: #f87171;
+      /* 赤 */
+    }
+
+    /* 計算結果の枠だけ右寄せ */
+    #resultPill {
+      margin-left: auto;
+    }
+
+    /* ★リセット専用：控えめボタン */
+    .reset-btn {
+      padding: 6px 12px;
+      /* 小さく */
+      font-size: 13px;
+      /* 少し小さめ */
+      opacity: 0.7;
+      /* 少し薄く */
+      background: transparent;
+      /* 目立たせない */
+    }
+
+    .reset-btn:hover {
+      opacity: 1;
+      /* ホバー時は普通に */
+      background: rgba(253, 164, 175, 0.08);
+    }
+
+    /* ★追加：リセットだけ控えめ */
+    button.danger {
+      background: rgba(248, 113, 113, 0.10);
+      border-color: rgba(248, 113, 113, 0.25);
+    }
+
+    button.danger:hover {
+      background: rgba(248, 113, 113, 0.14);
     }
   </style>
 </head>
+
 <body>
   <div class="wrap">
     <header>
       <h1>日付計算（日付＋日数）</h1>
-      <p class="sub">日付に日数を足して、新しい日付と曜日を出します（負数で引き算もOK）。</p>
+      <p class="sub">日付に日数を足して、新しい日付と曜日を出します（負数で引き算も可能）。</p>
     </header>
 
     <div class="grid">
       <!-- 入力 -->
       <section class="card" aria-label="入力">
         <div class="row">
-          <label for="baseDate">年月日</label>
+          <label for="baseDate">基準日</label>
           <input id="baseDate" type="date" />
         </div>
 
         <div class="row">
-          <label for="days">＋日数（マイナスもOK）</label>
+          <label for="days">＋日数（マイナス値も入力可能）</label>
           <input id="days" type="number" inputmode="numeric" placeholder="例：30 / -7" />
         </div>
 
         <div class="row">
-          <div class="inline" role="group" aria-label="初日の数え方">
-            <input id="includeStart" type="checkbox" />
-            <label for="includeStart" style="margin:0; color:var(--text);">
-              初日を数える（チェックONで「今日を1日目」として計算）
+            <label class="inline" for="includeStart">
+              <input id="includeStart" type="checkbox" />
+              初日を数える（今日を1日目として計算）
             </label>
-          </div>
-          <p class="hint">
-            例：<span class="kbd">2026/02/13</span> から <span class="kbd">1日後</span><br/>
-            ・数えない → <span class="kbd">2026/02/14</span><br/>
-            ・数える → <span class="kbd">2026/02/13</span>
-          </p>
         </div>
 
         <div class="btns">
-          <button class="primary" id="calcBtn" type="button">計算する</button>
-          <button id="todayBtn" type="button">今日を入れる</button>
-          <button class="danger" id="resetBtn" type="button">リセット</button>
+          <button class="danger reset-btn" id="resetBtn" type="button">リセット</button>
+
+          <!-- 結果 -->
+          <div class="pill" id="resultPill" style="margin-top:0;">
+            <p class="muted">計算結果</p>
+            <span class="big" id="resultDate">—</span>
+          </div>
+
         </div>
 
         <div style="margin-top:12px">
@@ -234,36 +319,6 @@
           <div class="ok" id="okText"></div>
         </div>
 
-        <div class="footerNote">
-          ※ 時刻や祝日・営業日は考えず、カレンダー上の日付だけを計算します。
-        </div>
-      </section>
-
-      <!-- 結果 -->
-      <section class="card" aria-label="結果">
-        <div class="result">
-          <div>
-            <p class="muted">計算結果（年月日・曜日）</p>
-            <div class="pill">
-              <span>📅</span>
-              <span class="big" id="resultDate">—</span>
-            </div>
-          </div>
-
-          <div>
-            <p class="muted">コピー用（YYYY-MM-DD）</p>
-            <div class="pill">
-              <span>📋</span>
-              <span class="big" id="resultISO">—</span>
-            </div>
-          </div>
-
-          <div class="btns">
-            <button id="copyBtn" type="button">結果をコピー</button>
-          </div>
-
-          <p class="hint" id="detailText">入力すると、ここに説明が出ます。</p>
-        </div>
       </section>
     </div>
   </div>
@@ -278,18 +333,15 @@
     const includeStartEl = document.getElementById('includeStart');
 
     const resultDateEl = document.getElementById('resultDate');
-    const resultISOEl = document.getElementById('resultISO');
-    const detailTextEl = document.getElementById('detailText');
 
     const errorTextEl = document.getElementById('errorText');
     const okTextEl = document.getElementById('okText');
 
     const calcBtn = document.getElementById('calcBtn');
-    const todayBtn = document.getElementById('todayBtn');
+    if (calcBtn) calcBtn.addEventListener('click', calculate);
     const resetBtn = document.getElementById('resetBtn');
-    const copyBtn = document.getElementById('copyBtn');
 
-    const WEEK = ['日','月','火','水','木','金','土'];
+    const WEEK = ['日', '月', '火', '水', '木', '金', '土'];
 
     // ✅ 今日を date input に入れる（ローカル日付）
     function setToday() {
@@ -311,14 +363,21 @@
       const y = dateObj.getFullYear();
       const m = dateObj.getMonth() + 1;
       const d = dateObj.getDate();
-      const w = WEEK[dateObj.getDay()];
-      return `${y}/${String(m).padStart(2,'0')}/${String(d).padStart(2,'0')}（${w}）`;
+      const dayIndex = dateObj.getDay();
+      const w = WEEK[dayIndex];
+
+      // ★曜日だけクラスを付ける
+      let dayClass = '';
+      if (dayIndex === 0) dayClass = 'sunday';
+      if (dayIndex === 6) dayClass = 'saturday';
+
+      return `${y}/${String(m).padStart(2, '0')}/${String(d).padStart(2, '0')}（<span class="${dayClass}">${w}</span>）`;
     }
 
     function formatISO(dateObj) {
       const y = dateObj.getFullYear();
-      const m = String(dateObj.getMonth() + 1).padStart(2,'0');
-      const d = String(dateObj.getDate()).padStart(2,'0');
+      const m = String(dateObj.getMonth() + 1).padStart(2, '0');
+      const d = String(dateObj.getDate()).padStart(2, '0');
       return `${y}-${m}-${d}`;
     }
 
@@ -332,18 +391,13 @@
       okTextEl.textContent = '';
     }
 
-    function showOk(msg) {
-      okTextEl.textContent = msg;
-      errorTextEl.textContent = '';
-    }
-
     // ✅ 計算
     function calculate() {
       clearMessages();
 
       const baseYMD = baseDateEl.value;
       if (!baseYMD) {
-        showError('年月日を入力してください。');
+        showError('基準日を入力してください。');
         return;
       }
 
@@ -356,56 +410,47 @@
       const days = Number(daysStr);
 
       // 初日を数えるなら、実質「days-1」を足す
-      const addDays = includeStartEl.checked ? (days - 1) : days;
+      let addDays;
+
+      if (includeStartEl.checked) {
+        // ★初日を数えるモード
+        if (days === 1 || days === -1) {
+          addDays = 0; // ★±1は当日
+        } else if (days > 1) {
+          addDays = days - 1;
+        } else if (days < -1) {
+          addDays = days + 1;
+        } else {
+          addDays = 0; // days === 0 の場合
+        }
+      } else {
+        addDays = days;
+      }
 
       const base = parseYMDToLocalNoon(baseYMD);
       const result = new Date(base);
       result.setDate(result.getDate() + addDays);
 
-      resultDateEl.textContent = formatJP(result);
-      resultISOEl.textContent = formatISO(result);
+      // 曜日ごとに色を変更
+      resultDateEl.innerHTML = formatJP(result);
 
       const baseJP = formatJP(base);
       const modeText = includeStartEl.checked ? '初日を数える' : '初日を数えない';
-
-      detailTextEl.textContent =
-        `${baseJP} に「${days}日」(${modeText}) を適用 → ${formatJP(result)}`;
-
-      showOk('計算しました。');
     }
 
-    // ✅ リセット
+    // リセット
     function resetAll() {
-      baseDateEl.value = '';
-      daysEl.value = '';
+      // ★初期状態に戻す：今日 + 0
       includeStartEl.checked = false;
-      resultDateEl.textContent = '—';
-      resultISOEl.textContent = '—';
-      detailTextEl.textContent = '入力すると、ここに説明が出ます。';
+      setToday();       // ★今日を入れる
+      daysEl.value = 0; // ★日数を0に戻す
       clearMessages();
+      calculate();      // ★表示も更新
     }
 
-    // ✅ コピー
-    async function copyResult() {
-      clearMessages();
-      const text = resultISOEl.textContent;
-      if (!text || text === '—') {
-        showError('先に計算してください。');
-        return;
-      }
-      try {
-        await navigator.clipboard.writeText(text);
-        showOk(`コピーしました：${text}`);
-      } catch (e) {
-        showError('コピーに失敗しました（ブラウザ設定でクリップボードが禁止の可能性）。');
-      }
-    }
-
-    // ボタン操作
-    calcBtn.addEventListener('click', calculate);
-    todayBtn.addEventListener('click', () => { setToday(); showOk('今日を入力しました。'); });
+    // ボタン操作（★calcBtn は存在しないので if で安全に）
+    if (calcBtn) calcBtn.addEventListener('click', calculate);
     resetBtn.addEventListener('click', resetAll);
-    copyBtn.addEventListener('click', copyResult);
 
     // 入力したら自動で再計算（操作がラク）
     baseDateEl.addEventListener('change', calculate);
@@ -421,4 +466,5 @@
     calculate();
   </script>
 </body>
+
 </html>
