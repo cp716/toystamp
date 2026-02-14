@@ -29,6 +29,12 @@
       box-sizing: border-box
     }
 
+    /* 画面全体で“ダブルタップ拡大”を抑える */
+    html,
+    body {
+      touch-action: manipulation;
+    }
+
     body {
       margin: 0;
       font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
@@ -355,7 +361,6 @@
       border-radius: 12px;
       font-weight: 800;
       line-height: 1;
-      touch-action: manipulation; /* ダブルタップ拡大を抑える */
     }
 
     /* ★変更：下段（PCは左寄せ / スマホは均等2分割） */
