@@ -2,11 +2,29 @@
 <html lang="ja">
 
 <head>
-  <link rel="icon" href="./favicon.svg?v=2" type="image/svg+xml">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ToyStamp Works</title>
-  <meta name="description" content="ToyStamp Works は日本を拠点とする iOS アプリ開発チームです。" />
+  <title>育児記録 - Cape | ToyStamp Works</title>
+  <meta name="description" content="育児の記録を、かんたんに。シンプルで続けやすい育児記録アプリ「Cape」の公式サイトです。" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="ja_JP" />
+  <meta property="og:site_name" content="ToyStamp Works" />
+  <meta property="og:title" content="育児記録 - Cape" />
+  <meta property="og:description" content="育児の記録を、かんたんに。シンプルで続けやすい育児記録アプリです。" />
+  <meta property="og:url" content="https://toystamp.jp/" />
+  <meta property="og:image" content="https://toystamp.jp/images/og-cape.png?v=20260727" />
+  <meta property="og:image:secure_url" content="https://toystamp.jp/images/og-cape.png?v=20260727" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="育児記録 - Cape。育児の記録を、かんたんに。" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="育児記録 - Cape" />
+  <meta name="twitter:description" content="育児の記録を、かんたんに。シンプルで続けやすい育児記録アプリです。" />
+  <meta name="twitter:image" content="https://toystamp.jp/images/og-cape.png?v=20260727" />
+  <meta name="twitter:image:alt" content="育児記録 - Cape。育児の記録を、かんたんに。" />
 
   <style>
     /* ★変更：明るい配色（育児向けのやさしい雰囲気） */
@@ -47,16 +65,16 @@
     }
 
     .wrap {
-      max-width: 920px;
+      max-width: 880px;
       margin: 0 auto;
-      padding: 48px 20px 60px;
+      padding: 56px 24px 68px;
     }
 
     .hero {
       display: flex;
       flex-direction: column;
-      gap: 14px;
-      margin-bottom: 28px;
+      gap: 16px;
+      margin-bottom: 34px;
     }
 
     .badge {
@@ -85,16 +103,16 @@
 
     h1 {
       margin: 0;
-      font-size: 44px;
-      line-height: 1.1;
-      letter-spacing: -0.02em;
+      font-size: clamp(40px, 7vw, 58px);
+      line-height: 1.08;
+      letter-spacing: -0.04em;
     }
 
     .sub {
       margin: 0;
-      font-size: 16px;
+      font-size: 17px;
       color: var(--muted);
-      line-height: 1.8;
+      line-height: 1.9;
       max-width: 80ch;
     }
 
@@ -116,22 +134,22 @@
     }
 
     .card {
+      min-width: 0;
       border: 1px solid var(--border);
-      background: var(--card);
-      border-radius: 18px;
-      padding: 18px 18px 16px;
+      background: rgba(255, 255, 255, 0.86);
+      border-radius: 24px;
+      padding: 28px;
       backdrop-filter: blur(12px);
 
-      /* ★追加：明るい影 */
       box-shadow:
-        0 10px 25px rgba(16, 24, 40, 0.06),
+        0 16px 40px rgba(16, 24, 40, 0.07),
         0 1px 0 rgba(255, 255, 255, 0.60) inset;
     }
 
     h2 {
-      margin: 0 0 10px;
-      font-size: 18px;
-      letter-spacing: -0.01em;
+      margin: 0 0 18px;
+      font-size: 20px;
+      letter-spacing: -0.02em;
     }
 
     p {
@@ -139,35 +157,6 @@
       color: var(--muted);
       line-height: 1.9;
       font-size: 15px;
-    }
-
-    ul {
-      margin: 0;
-      padding-left: 18px;
-      color: var(--muted);
-      line-height: 1.9;
-      font-size: 15px;
-    }
-
-    li {
-      margin: 6px 0;
-    }
-
-    .row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 12px;
-    }
-
-    .pill {
-      border: 1px solid var(--border);
-      background: rgba(255, 255, 255, 0.70);
-      /* ★変更 */
-      padding: 8px 12px;
-      border-radius: 999px;
-      font-size: 13px;
-      color: var(--muted);
     }
 
     /* ★変更：リンクを明るく（青系） */
@@ -181,31 +170,489 @@
       border-bottom-color: rgba(2, 132, 199, 0.75);
     }
 
-    /* ★追加：Capeボタン */
-    .cta {
-      display: inline-flex;
+    .app-summary {
+      display: flex;
       align-items: center;
-      gap: 10px;
-      margin-top: 12px;
-      padding: 12px 14px;
-      border-radius: 14px;
-      border: 1px solid var(--border);
-      background: linear-gradient(135deg, rgba(94, 234, 212, 0.35), rgba(147, 197, 253, 0.35));
-      color: rgba(16, 24, 40, 0.92);
-      font-weight: 700;
-      box-shadow: 0 10px 18px rgba(16, 24, 40, 0.06);
-      width: fit-content;
+      gap: 18px;
     }
 
-    .cta:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 14px 24px rgba(16, 24, 40, 0.08);
+    .app-icon {
+      flex: 0 0 auto;
+      width: 80px;
+      height: 80px;
+      border-radius: 20px;
+      box-shadow: 0 10px 24px rgba(16, 24, 40, 0.14);
     }
 
-    .cta small {
+    .app-name {
       display: block;
-      font-weight: 600;
-      color: rgba(16, 24, 40, 0.65);
+      margin-bottom: 5px;
+      font-size: 18px;
+      letter-spacing: -0.02em;
+    }
+
+    .app-tagline {
+      display: block;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .app-description {
+      margin-top: 18px;
+    }
+
+    .download-area {
+      margin-top: 22px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+
+    .contact-email {
+      margin-top: 18px;
+      padding: 12px 16px;
+      border-radius: 14px;
+      background: rgba(147, 197, 253, 0.12);
+      text-align: center;
+    }
+
+    .features-intro {
+      max-width: 64ch;
+    }
+
+    .screenshot-gallery {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 22px;
+    }
+
+    .screenshot-item {
+      min-width: 0;
+      margin: 0;
+      padding: 7px 7px 12px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.82);
+      box-shadow: 0 10px 24px rgba(16, 24, 40, 0.07);
+      overflow: hidden;
+    }
+
+    .screenshot-button {
+      position: relative;
+      display: block;
+      width: 100%;
+      padding: 0;
+      border: 0;
+      border-radius: 13px;
+      background: transparent;
+      cursor: zoom-in;
+      overflow: hidden;
+    }
+
+    .screenshot-button:focus-visible {
+      outline: 3px solid rgba(2, 132, 199, 0.38);
+      outline-offset: 3px;
+    }
+
+    .screenshot-button img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 13px;
+      transition: transform 0.25s ease, filter 0.25s ease;
+    }
+
+    .screenshot-button:hover img {
+      transform: scale(1.015);
+      filter: saturate(1.03);
+    }
+
+    .screenshot-item figcaption {
+      margin-top: 10px;
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.5;
+      text-align: center;
+    }
+
+    .modal-open {
+      overflow: hidden;
+    }
+
+    .screenshot-modal {
+      position: fixed;
+      inset: 0;
+      width: min(96vw, 820px);
+      max-width: none;
+      max-height: none;
+      margin: auto;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      overflow: visible;
+    }
+
+    .screenshot-modal::backdrop {
+      background: rgba(8, 15, 28, 0.76);
+      backdrop-filter: blur(16px);
+      animation: backdrop-in 0.2s ease-out;
+    }
+
+    .screenshot-modal[open] {
+      animation: modal-in 0.24s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .modal-shell {
+      position: relative;
+      display: grid;
+      grid-template-columns: 52px minmax(0, 1fr) 52px;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .modal-content {
+      min-width: 0;
+      padding: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 26px;
+      background: rgba(255, 255, 255, 0.92);
+      box-shadow: 0 28px 80px rgba(0, 0, 0, 0.38);
+    }
+
+    .modal-image-viewport {
+      height: 78vh;
+      min-height: 0;
+      border-radius: 18px;
+      overflow: hidden;
+      cursor: grab;
+      touch-action: pan-y;
+      user-select: none;
+    }
+
+    .modal-image-viewport.is-dragging {
+      cursor: grabbing;
+    }
+
+    .modal-track {
+      display: flex;
+      width: 300%;
+      height: 100%;
+      transform: translate3d(-33.333333%, 0, 0);
+      will-change: transform;
+    }
+
+    .modal-track.is-animating {
+      transition: transform 320ms cubic-bezier(0.22, 0.8, 0.3, 1);
+    }
+
+    .modal-slide {
+      display: flex;
+      flex: 0 0 33.333333%;
+      justify-content: center;
+      align-items: center;
+      min-width: 0;
+      height: 100%;
+    }
+
+    .modal-image {
+      display: block;
+      width: auto;
+      max-width: 100%;
+      height: 100%;
+      max-height: none;
+      border-radius: 18px;
+      object-fit: contain;
+    }
+
+    .modal-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 12px 8px 2px;
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .modal-count {
+      flex: 0 0 auto;
+      color: var(--muted);
+      font-size: 12px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .modal-close,
+    .modal-nav {
+      display: grid;
+      place-items: center;
+      padding: 0;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.92);
+      color: rgba(16, 24, 40, 0.88);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.24);
+      cursor: pointer;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .modal-close:hover,
+    .modal-nav:hover,
+    .modal-close:focus-visible,
+    .modal-nav:focus-visible {
+      transform: scale(1.06);
+      background: #fff;
+    }
+
+    .modal-close:focus-visible,
+    .modal-nav:focus-visible {
+      outline: 3px solid rgba(147, 197, 253, 0.75);
+      outline-offset: 3px;
+    }
+
+    .modal-close {
+      position: absolute;
+      z-index: 2;
+      top: -18px;
+      right: 48px;
+      width: 44px;
+      height: 44px;
+      font-size: 28px;
+      line-height: 1;
+    }
+
+    .modal-close::before,
+    .modal-close::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 15px;
+      height: 2px;
+      border-radius: 999px;
+      background: currentColor;
+      transform-origin: center;
+    }
+
+    .modal-close::before {
+      transform: translate(-50%, -50%) rotate(45deg);
+    }
+
+    .modal-close::after {
+      transform: translate(-50%, -50%) rotate(-45deg);
+    }
+
+    .modal-nav {
+      width: 52px;
+      height: 52px;
+    }
+
+    .modal-nav::before {
+      content: "";
+      width: 11px;
+      height: 11px;
+      border-top: 2px solid currentColor;
+      border-right: 2px solid currentColor;
+      transform-origin: center;
+    }
+
+    .modal-prev::before {
+      transform: rotate(-135deg);
+    }
+
+    .modal-next::before {
+      transform: rotate(45deg);
+    }
+
+    @keyframes modal-in {
+      from {
+        opacity: 0;
+        transform: translateY(12px) scale(0.98);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes backdrop-in {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    .store-badge-link {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      min-width: 0;
+      border: 0;
+      border-radius: 10px;
+      transition: transform 0.2s ease, filter 0.2s ease;
+    }
+
+    .store-badge-link:hover,
+    .store-badge-link:focus-visible {
+      transform: translateY(-1px);
+      border-bottom-color: transparent;
+      filter: drop-shadow(0 8px 10px rgba(16, 24, 40, 0.12));
+    }
+
+    .store-badge-link:focus-visible {
+      outline: 3px solid rgba(2, 132, 199, 0.35);
+      outline-offset: 3px;
+    }
+
+    .store-badge {
+      display: block;
+      width: auto;
+      max-width: 100%;
+    }
+
+    .app-store-badge {
+      height: 48px;
+    }
+
+    .google-play-badge {
+      height: 48px;
+    }
+
+    .store-links {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      align-items: center;
+      gap: 12px;
+      max-width: 390px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 520px) {
+      .wrap {
+        padding: 42px 18px 54px;
+      }
+
+      .hero {
+        margin-bottom: 26px;
+      }
+
+      h1 {
+        font-size: 38px;
+      }
+
+      .sub {
+        font-size: 15px;
+      }
+
+      .card {
+        padding: 22px 20px;
+        border-radius: 22px;
+      }
+
+      .app-summary {
+        gap: 14px;
+      }
+
+      .app-icon {
+        width: 68px;
+        height: 68px;
+        border-radius: 17px;
+      }
+
+      .app-name {
+        font-size: 16px;
+      }
+
+      .app-tagline {
+        font-size: 13px;
+      }
+
+      .app-store-badge,
+      .google-play-badge {
+        height: 44px;
+      }
+
+      .screenshot-gallery {
+        grid-template-columns: none;
+        grid-auto-flow: column;
+        grid-auto-columns: min(72vw, 240px);
+        gap: 12px;
+        margin-right: -20px;
+        padding: 0 20px 12px 0;
+        overflow-x: auto;
+        overscroll-behavior-inline: contain;
+        scroll-snap-type: inline mandatory;
+        scrollbar-width: thin;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .screenshot-item {
+        scroll-snap-align: start;
+      }
+
+      .screenshot-modal {
+        width: 100vw;
+      }
+
+      .modal-shell {
+        display: block;
+        padding: 18px;
+      }
+
+      .modal-content {
+        padding: 8px;
+        border-radius: 22px;
+      }
+
+      .modal-image {
+        border-radius: 16px;
+      }
+
+      .modal-close {
+        top: 2px;
+        right: 8px;
+      }
+
+      .modal-nav {
+        position: absolute;
+        z-index: 2;
+        top: 50%;
+        width: 44px;
+        height: 44px;
+        transform: translateY(-50%);
+        background: rgba(255, 255, 255, 0.88);
+      }
+
+      .modal-nav:hover,
+      .modal-nav:focus-visible {
+        transform: translateY(-50%) scale(1.05);
+      }
+
+      .modal-prev {
+        left: 2px;
+      }
+
+      .modal-next {
+        right: 2px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
     }
 
     footer {
@@ -223,73 +670,105 @@
     <section class="hero">
       <div class="badge">
         <span class="dot" aria-hidden="true"></span>
-        <span>公式サイト</span>
+        <span>育児記録アプリ</span>
       </div>
 
-      <h1>ToyStamp Works</h1>
+      <h1>育児記録 - Cape</h1>
 
       <p class="sub">
-        ToyStamp Works は日本を拠点とする <strong>アプリ開発チーム</strong>です。<br />
-        育児の毎日が少しラクになるように、やさしく・わかりやすい体験を大切にして開発しています。
+        育児の記録を、かんたんに。<br />
+        毎日の授乳・睡眠・おむつなどを、直感的に残せます。
       </p>
-
-      <div class="row" aria-label="keywords">
-        <div class="pill">育児サポート</div> <!-- ★変更 -->
-        <div class="pill">React Native / Expo</div>
-        <div class="pill">継続改善・保守</div>
-      </div>
     </section>
 
     <section class="grid">
-      <div class="card">
-        <h2>概要</h2>
-        <p>
-          アプリの企画から実装、運用改善まで一貫して対応します。
-        </p>
-      </div>
-
-      <div class="card">
-        <h2>できること</h2>
-        <ul>
-          <li>アプリの設計・開発</li>
-          <li>React Native / Expo を用いたモバイル開発</li>
-          <li>不具合修正・保守・継続的な改善</li>
-        </ul>
-      </div>
-
       <!-- ★ Cape セクション -->
       <div class="card span2">
-        <h2>アプリ</h2>
+        <h2>アプリをダウンロード</h2>
 
-        <!-- アプリアイコン -->
-        <div style="display:flex; gap:16px; align-items:center; margin-bottom:12px;">
-          <img src="images/icon.png" alt="育児記録 - Cape アプリアイコン" width="72" height="72"
-            style="border-radius:16px; box-shadow:0 6px 14px rgba(0,0,0,0.15);" />
+        <div class="app-summary">
+          <img class="app-icon" src="images/icon.png" alt="育児記録 - Cape アプリアイコン" width="80" height="80" />
 
           <div>
-            <strong>育児記録 - Cape</strong><br />
-            <span style="color:var(--muted); font-size:14px;">
-              シンプルで続けやすい育児記録アプリ
-            </span>
+            <strong class="app-name">育児記録 - Cape</strong>
+            <span class="app-tagline">シンプルで続けやすい育児記録アプリ</span>
           </div>
         </div>
 
-        <p>
-          日々の育児記録を、やさしく・直感的に残せるアプリです。
+        <p class="app-description">
+          日々の育児記録を、直感的に残せるアプリです。
         </p>
 
-        <a class="cta" href="https://apps.apple.com/app/id6747367484" target="_blank" rel="noopener noreferrer">
-          App Storeで見る
-          <small>iPhone / iPad / Mac</small>
-        </a>
+        <div class="download-area">
+          <div class="store-links" aria-label="アプリストア">
+            <a class="store-badge-link" href="https://apps.apple.com/app/id6747367484" target="_blank"
+              rel="noopener noreferrer" aria-label="App Storeで育児記録 - Capeを見る">
+              <img class="store-badge app-store-badge" src="images/app-store-badge-ja.svg"
+                alt="App Storeからダウンロード" />
+            </a>
+
+            <a class="store-badge-link" href="https://play.google.com/store/apps/details?id=jp.cape.babyapp"
+              target="_blank" rel="noopener noreferrer" aria-label="Google Playで育児記録 - Capeを見る">
+              <img class="store-badge google-play-badge" src="images/google-play-badge-ja.svg"
+                alt="Google Playで手に入れよう" />
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card span2">
+        <h2>Capeでできること</h2>
+        <p class="features-intro">
+          毎日の育児記録から予防接種、大事な記録、統計まで、ひとつのアプリで確認できます。
+        </p>
+
+        <div class="screenshot-gallery" aria-label="アプリの主な機能">
+          <figure class="screenshot-item">
+            <button class="screenshot-button" type="button" aria-haspopup="dialog"
+              aria-label="1日の記録画面を拡大表示">
+              <img src="images/screenshots/daily-records.png" alt="1日の育児記録を一覧で確認できる画面" width="600"
+                height="1300" loading="lazy" />
+            </button>
+            <figcaption>1日の記録</figcaption>
+          </figure>
+
+          <figure class="screenshot-item">
+            <button class="screenshot-button" type="button" aria-haspopup="dialog"
+              aria-label="予防接種の管理画面を拡大表示">
+              <img src="images/screenshots/vaccinations.png" alt="予防接種の予定と接種日をまとめて管理する画面" width="600"
+                height="1300" loading="lazy" />
+            </button>
+            <figcaption>予防接種の管理</figcaption>
+          </figure>
+
+          <figure class="screenshot-item">
+            <button class="screenshot-button" type="button" aria-haspopup="dialog"
+              aria-label="大事な記録画面を拡大表示">
+              <img src="images/screenshots/important-records.png" alt="大事な育児記録を保存して確認する画面" width="600"
+                height="1300" loading="lazy" />
+            </button>
+            <figcaption>大事な記録</figcaption>
+          </figure>
+
+          <figure class="screenshot-item">
+            <button class="screenshot-button" type="button" aria-haspopup="dialog"
+              aria-label="記録の統計画面を拡大表示">
+              <img src="images/screenshots/statistics.png" alt="育児記録の統計を日ごとに確認する画面" width="600"
+                height="1300" loading="lazy" />
+            </button>
+            <figcaption>記録の統計</figcaption>
+          </figure>
+        </div>
       </div>
 
       <div class="card span2">
         <h2>お問い合わせ</h2>
         <p>
-          アプリや事業に関するお問い合わせは、以下のメールアドレスまでご連絡ください。<br />
+          アプリに関するお問い合わせや、広告掲載のご相談を受け付けています。
+        </p>
+        <p class="contact-email">
           <strong>Email:</strong>
-          <a href="mailto:info@toystamp.jp">info@toystamp.jp</a>
+          <a href="mailto:contact@toystamp.jp">contact@toystamp.jp</a>
         </p>
       </div>
     </section>
@@ -299,9 +778,244 @@
     </footer>
   </main>
 
+  <dialog class="screenshot-modal" id="screenshot-modal" aria-labelledby="modal-caption">
+    <div class="modal-shell">
+      <button class="modal-nav modal-prev" type="button" aria-label="前の画像"></button>
+
+      <div class="modal-content">
+        <div class="modal-image-viewport" id="modal-image-viewport">
+          <div class="modal-track" id="modal-track">
+            <div class="modal-slide" aria-hidden="true">
+              <img class="modal-image" id="modal-image-prev" src="" alt="" draggable="false" />
+            </div>
+            <div class="modal-slide">
+              <img class="modal-image" id="modal-image" src="" alt="" draggable="false" />
+            </div>
+            <div class="modal-slide" aria-hidden="true">
+              <img class="modal-image" id="modal-image-next" src="" alt="" draggable="false" />
+            </div>
+          </div>
+        </div>
+        <div class="modal-meta">
+          <span id="modal-caption"></span>
+          <span class="modal-count" id="modal-count"></span>
+        </div>
+      </div>
+
+      <button class="modal-nav modal-next" type="button" aria-label="次の画像"></button>
+      <button class="modal-close" type="button" aria-label="拡大表示を閉じる"></button>
+    </div>
+  </dialog>
+
   <script>
-    // 年号だけ自動で更新
     document.getElementById('y').textContent = new Date().getFullYear();
+
+    const modal = document.getElementById('screenshot-modal');
+    const modalViewport = document.getElementById('modal-image-viewport');
+    const modalTrack = document.getElementById('modal-track');
+    const modalPrevImage = document.getElementById('modal-image-prev');
+    const modalImage = document.getElementById('modal-image');
+    const modalNextImage = document.getElementById('modal-image-next');
+    const modalCaption = document.getElementById('modal-caption');
+    const modalCount = document.getElementById('modal-count');
+    const screenshotButtons = Array.from(document.querySelectorAll('.screenshot-button'));
+    let currentScreenshot = 0;
+    let isSliding = false;
+    let activePointerId = null;
+    let dragStartX = 0;
+    let dragStartY = 0;
+    let dragStartTime = 0;
+    let dragDeltaX = 0;
+    let dragAxis = null;
+
+    function normalizeScreenshotIndex(index) {
+      return (index + screenshotButtons.length) % screenshotButtons.length;
+    }
+
+    function getScreenshotData(index) {
+      const button = screenshotButtons[normalizeScreenshotIndex(index)];
+      const image = button.querySelector('img');
+      const caption = button.closest('.screenshot-item').querySelector('figcaption').textContent;
+      return {
+        src: image.currentSrc || image.src,
+        alt: image.alt,
+        caption
+      };
+    }
+
+    function renderModalSlides() {
+      const previous = getScreenshotData(currentScreenshot - 1);
+      const current = getScreenshotData(currentScreenshot);
+      const next = getScreenshotData(currentScreenshot + 1);
+
+      modalPrevImage.src = previous.src;
+      modalImage.src = current.src;
+      modalNextImage.src = next.src;
+      modalImage.alt = current.alt;
+      modalCaption.textContent = current.caption;
+      modalCount.textContent = `${currentScreenshot + 1} / ${screenshotButtons.length}`;
+
+      modalTrack.classList.remove('is-animating');
+      modalViewport.classList.remove('is-dragging');
+      modalTrack.style.transform = 'translate3d(-33.333333%, 0, 0)';
+    }
+
+    function showScreenshot(index) {
+      currentScreenshot = normalizeScreenshotIndex(index);
+      isSliding = false;
+      renderModalSlides();
+    }
+
+    function slideScreenshot(direction) {
+      if (isSliding) return;
+      isSliding = true;
+      modalViewport.classList.remove('is-dragging');
+      modalTrack.classList.add('is-animating');
+
+      const destination = direction > 0 ? '-66.666667%' : '0%';
+      requestAnimationFrame(() => {
+        modalTrack.style.transform = `translate3d(${destination}, 0, 0)`;
+      });
+
+      let completed = false;
+      const finish = () => {
+        if (completed) return;
+        completed = true;
+        modalTrack.removeEventListener('transitionend', handleTransitionEnd);
+        currentScreenshot = normalizeScreenshotIndex(currentScreenshot + direction);
+        renderModalSlides();
+        isSliding = false;
+      };
+      const handleTransitionEnd = (event) => {
+        if (event.target === modalTrack && event.propertyName === 'transform') finish();
+      };
+
+      modalTrack.addEventListener('transitionend', handleTransitionEnd);
+      window.setTimeout(finish, 380);
+    }
+
+    function restoreCurrentScreenshot() {
+      if (isSliding) return;
+      isSliding = true;
+      modalViewport.classList.remove('is-dragging');
+      modalTrack.classList.add('is-animating');
+
+      requestAnimationFrame(() => {
+        modalTrack.style.transform = 'translate3d(-33.333333%, 0, 0)';
+      });
+
+      let completed = false;
+      const finish = () => {
+        if (completed) return;
+        completed = true;
+        modalTrack.removeEventListener('transitionend', handleTransitionEnd);
+        modalTrack.classList.remove('is-animating');
+        isSliding = false;
+      };
+      const handleTransitionEnd = (event) => {
+        if (event.target === modalTrack && event.propertyName === 'transform') finish();
+      };
+
+      modalTrack.addEventListener('transitionend', handleTransitionEnd);
+      window.setTimeout(finish, 380);
+    }
+
+    screenshotButtons.forEach((button, index) => {
+      button.addEventListener('click', () => {
+        showScreenshot(index);
+        modal.showModal();
+        document.body.classList.add('modal-open');
+      });
+    });
+
+    document.querySelector('.modal-close').addEventListener('click', () => modal.close());
+    document.querySelector('.modal-prev').addEventListener('click', () => slideScreenshot(-1));
+    document.querySelector('.modal-next').addEventListener('click', () => slideScreenshot(1));
+
+    modal.addEventListener('click', (event) => {
+      if (event.target === modal) {
+        modal.close();
+      }
+    });
+
+    modal.addEventListener('close', () => {
+      document.body.classList.remove('modal-open');
+      activePointerId = null;
+      isSliding = false;
+      renderModalSlides();
+    });
+
+    modal.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        modal.close();
+      } else if (event.key === 'ArrowLeft') {
+        slideScreenshot(-1);
+      } else if (event.key === 'ArrowRight') {
+        slideScreenshot(1);
+      }
+    });
+
+    modalViewport.addEventListener('pointerdown', (event) => {
+      if (isSliding || event.button !== 0) return;
+
+      activePointerId = event.pointerId;
+      dragStartX = event.clientX;
+      dragStartY = event.clientY;
+      dragStartTime = performance.now();
+      dragDeltaX = 0;
+      dragAxis = null;
+      modalTrack.classList.remove('is-animating');
+      modalViewport.setPointerCapture(event.pointerId);
+    });
+
+    modalViewport.addEventListener('pointermove', (event) => {
+      if (event.pointerId !== activePointerId || isSliding) return;
+
+      const deltaX = event.clientX - dragStartX;
+      const deltaY = event.clientY - dragStartY;
+
+      if (!dragAxis && (Math.abs(deltaX) > 6 || Math.abs(deltaY) > 6)) {
+        dragAxis = Math.abs(deltaX) > Math.abs(deltaY) ? 'x' : 'y';
+      }
+      if (dragAxis !== 'x') return;
+
+      event.preventDefault();
+      dragDeltaX = deltaX;
+      modalViewport.classList.add('is-dragging');
+      modalTrack.style.transform = `translate3d(calc(-33.333333% + ${dragDeltaX}px), 0, 0)`;
+    }, { passive: false });
+
+    function finishPointerGesture(event) {
+      if (event.pointerId !== activePointerId) return;
+
+      if (modalViewport.hasPointerCapture(event.pointerId)) {
+        modalViewport.releasePointerCapture(event.pointerId);
+      }
+      activePointerId = null;
+
+      if (dragAxis !== 'x') {
+        dragAxis = null;
+        return;
+      }
+
+      const elapsed = Math.max(performance.now() - dragStartTime, 1);
+      const velocity = dragDeltaX / elapsed;
+      const threshold = Math.min(90, modalViewport.clientWidth * 0.22);
+      const shouldMove = Math.abs(dragDeltaX) >= threshold || Math.abs(velocity) >= 0.45;
+      const direction = dragDeltaX < 0 ? 1 : -1;
+
+      dragAxis = null;
+      if (shouldMove) {
+        slideScreenshot(direction);
+      } else {
+        restoreCurrentScreenshot();
+      }
+    }
+
+    modalViewport.addEventListener('pointerup', finishPointerGesture);
+    modalViewport.addEventListener('pointercancel', finishPointerGesture);
+    modalViewport.addEventListener('dragstart', (event) => event.preventDefault());
   </script>
 </body>
 
